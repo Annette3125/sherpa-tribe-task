@@ -220,3 +220,6 @@ __marimo__/
 #db.sqlite3
 .db.sqlite3
 
+.zz_mount_test.txt
+zz_mount_test.txt
+
