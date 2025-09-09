@@ -63,6 +63,8 @@ docker compose exec -it web python manage.py createsuperuser
 
 - Comments: http://localhost:8000/api/comments/
 
+- Teams: http://localhost:8000/api/teams/
+
 - Admin: http://localhost:8000/admin/
 
 
