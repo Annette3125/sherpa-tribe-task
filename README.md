@@ -73,6 +73,8 @@ docker compose exec -it web python manage.py createsuperuser
   - /api/tasks/ – full CRUD, pagination, filtering (status, priority, is_archived), search (title, description), ordering (created_at, priority, due_date).
   - /api/tasks/{id}/comments/ – nested GET/POST for task comments.
   - /api/comments/ – CRUD for comments + filtering by task/author.
+  - /api/teams/ – CRUD for teams (name, members).
+
 - Browsable API enabled for quick manual testing.
 - Admin: Tasks/Tags/Comments manageable via Django Admin.
 
@@ -91,6 +93,22 @@ Add a comment to task 1:
 curl -X POST http://localhost:8000/api/tasks/1/comments/ \
   -H "Content-Type: application/json" \
   -d '{"author":1,"body":"First comment!"}'
+```
+
+### Teams examples
+
+Create a team with one member (id=1):
+```commandline
+curl -X POST http://localhost:8000/api/teams/ \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Backend Team","member_ids":[1]}'
+```
+
+Add more members to the team (PATCH):
+```
+curl -X PATCH http://localhost:8000/api/teams/1/ \
+  -H "Content-Type: application/json" \
+  -d '{"member_ids":[1,2]}'
 ```
 
 ### Tech stack

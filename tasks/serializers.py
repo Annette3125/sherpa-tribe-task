@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Task, Tag, Comment
+from .models import Task, Tag, Comment, Team
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,3 +28,17 @@ class TaskSerializer(serializers.ModelSerializer):
             "comments_count",
         ]
         read_only_fields = ["created_at","updated_at", "comments_count"]
+
+class TeamSerializer(serializers.ModelSerializer):
+    member_ids = serializers.PrimaryKeyRelatedField(
+        many=True,
+        write_only=True,
+        queryset=Team._meta.get_field("members").remote_field.model.objects.all(),
+        source="members",
+        required=False,
+    )
+
+    class Meta:
+        model = Team
+        fields = ["id", "name", "members", "member_ids", "created_at"]
+        read_only_fields = ["created_at"]

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Task, Tag, Comment
+from .models import Task, Tag, Comment, Team
 
 # Register your models here.
 
@@ -27,3 +27,9 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ("id", "task", "author", "created_at")
     list_filter = ("created_at",)
     search_fields = ("body",)
+
+@admin.register(Team)
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "created_at")
+    search_fields = ("name",)
+    filter_horizontal = ("members",)

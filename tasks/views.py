@@ -3,8 +3,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Task, Comment
-from .serializers import TaskSerializer, CommentSerializer
+from .models import Task, Comment, Team
+from .serializers import TaskSerializer, CommentSerializer, TeamSerializer
 # Create your views here.
 
 
@@ -41,3 +41,12 @@ class CommentViewSet(ModelViewSet):
     search_fields = ["body"]
     ordering_fields = ["created_at"]
     ordering = ["-created_at"]
+
+class TeamViewSet(ModelViewSet):
+    queryset = Team.objects.all().prefetch_related("members")
+    serializer_class = TeamSerializer
+
+    filterset_fields = ["name"]
+    search_fields = ["name"]
+    ordering_fields = ["name", "created_at"]
+    ordering = ["name"]
